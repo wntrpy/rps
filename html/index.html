@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RPS DOM 2</title>
+    <link rel="stylesheet" href="../style/style.css" />
+  </head>
+  <body>
+    <script>
+      /* Display the viewport width and height
+      alert(
+        "Width: " +
+          window.innerWidth +
+          "px\nHeight: " +
+          window.innerHeight +
+          "px"
+      );*/
+    </script>
+
+    <div class="text-wrapper">
+      <div class="computer-score-container">
+        <p class="computer-score"></p>
+        <p>Computer</p>
+      </div>
+      <div class="circle">
+        <img class="circle-image-score" src="../img/rock.png" alt="" />
+      </div>
+      <div class="player-score-container">
+        <p>Player</p>
+        <p class="player-score"></p>
+      </div>
+    </div>
+
+    <div class="main-wrapper">
+      <div class="computer-container">
+        <p>Computer</p>
+        <div>
+          <img class="computer-choice-img" src="../img/rock.png" alt="" />
+        </div>
+      </div>
+
+      <div class="player-container">
+        <p>Player</p>
+        <div>
+          <img class="player-choice-img" src="../img/rock.png" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <button onclick="rpsMechanics('paper')">
+        <img src="../img/paper.png" alt="" />
+      </button>
+      <button onclick="rpsMechanics('rock')">
+        <img src="../img/rock.png" alt="" />
+      </button>
+      <button onclick="rpsMechanics('scissors')">
+        <img src="../img/scissors.png" alt="" />
+      </button>
+      <button onclick="resetScore()">Reset</button>
+    </div>
+
+    <script>
+      let computerChoice = "";
+      let gameOutcome = "";
+      const score = JSON.parse(localStorage.getItem("score")) || {
+        playerWin: 0,
+        computerWin: 0,
+      };
+      updateScore();
+
+      function resetScore() {
+        changeImage("rock", "rock", "rock");
+        score.playerWin = 0;
+        score.computerWin = 0;
+        localStorage.removeItem("score");
+        updateScore();
+      }
+
+      function rpsMechanics(userChoice) {
+        const compChoice = getComputerMove();
+        if (userChoice === compChoice) {
+          gameOutcome = "tie";
+        } else if (
+          (userChoice === "scissors" && compChoice === "paper") ||
+          (userChoice === "paper" && compChoice === "rock") ||
+          (userChoice === "rock" && compChoice === "scissors")
+        ) {
+          gameOutcome = "win";
+          score.playerWin += 1;
+        } else {
+          gameOutcome = "lose";
+          score.computerWin += 1;
+        }
+        changeImage(userChoice, compChoice, gameOutcome);
+        localStorage.setItem("score", JSON.stringify(score));
+        updateScore();
+      }
+
+      function getComputerMove() {
+        let randomizer = Math.floor(Math.random() * 3) + 1;
+        if (randomizer === 1) computerChoice = "rock";
+        else if (randomizer === 2) computerChoice = "paper";
+        else if (randomizer === 3) computerChoice = "scissors";
+        return computerChoice;
+      }
+
+      function updateScore() {
+        document.querySelector(".computer-score").innerHTML = score.computerWin;
+        document.querySelector(".player-score").innerHTML = score.playerWin;
+      }
+
+      function changeImage(x, y, z) {
+        document.querySelector(".player-choice-img").src = `../img/${x}.png`;
+        document.querySelector(".computer-choice-img").src = `../img/${y}.png`;
+        document.querySelector(".circle-image-score").src = `../img/${z}.png`;
+      }
+    </script>
+  </body>
+</html>
