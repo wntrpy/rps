@@ -46,6 +46,7 @@ body{
   border-radius: 50%;
   object-fit: cov;
   box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+  cursor: pointer;
 }
 
 .computer-container, .player-container{
@@ -54,6 +55,7 @@ body{
   display: flex;
   flex-direction: column;
   gap: 30px;
+  font-weight: bolder;
 }
 
 .computer-choice-img, .player-choice-img{
@@ -71,6 +73,7 @@ body{
   border-radius: 50%;
   transition: all 1s ease-in-out;
   cursor: pointer;
+
 }
 
 .computer-score-container{
@@ -86,6 +89,7 @@ body{
   align-items: center;
   justify-content: space-evenly;
   padding-right: 10px;
+  font-weight: bolder;
 }
 
 .player-score-container{
@@ -100,11 +104,9 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  font-weight: bolder;
 }
 
-button img{
-  width: 100px;
-}
 
 .btn-container{
   display: flex;
@@ -124,6 +126,10 @@ button{
   border: 1px solid #e8e8e8;
   box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
   transition: all 1s ease-in-out;
+}
+
+button img{
+  width: 100px;
 }
 
 button:active {
@@ -166,8 +172,9 @@ button:hover, .computer-container div:hover, .player-container div:hover {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 10px;
     height: 50%;
+    font-weight: bolder;
   }
 
   .computer-container{
